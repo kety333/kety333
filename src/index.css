@@ -1,0 +1,31 @@
+.react-grid-item,
+.react-grid-layout {
+  border: 2px solid rgb(54, 95, 228);
+}
+.main-view-layouts-grid {
+  width: 1100px;
+}
+.layout-configrtion-view {
+  width: 800px;
+}
+.elements-grid-layout {
+  padding: 10;
+}
+
+.main-view-title {
+  border-bottom: 2px solid rgb(54, 95, 228);
+}
+
+.element-to-select {
+  border: 2px solid rgb(54, 95, 228);
+
+  height: 150px;
+  margin-top: 20px;
+  padding-top: 65px;
+}
+
+ul.element-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
