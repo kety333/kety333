@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./common/Header";
-import PageNotFound from "./PageNotFound";
+import PageNotFound from "./views/PageNotFound";
 import MainPage from "./views/MainView/MainView";
 import ConfigurationViewPage from "./views/ConfigurationView/ConfigurationView";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,7 +17,11 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={MainPage} />
-          <Route path="/configuration" component={ConfigurationViewPage} />
+          <Route
+            exaact
+            path="/configuration/:layout"
+            component={ConfigurationViewPage}
+          />
           <Route component={PageNotFound} />
         </Switch>
       </div>

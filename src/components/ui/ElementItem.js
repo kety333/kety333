@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import elementService from "../../services/elementService";
 
-export default class ElementsList extends Component {
-  state = {
-    elemnts: []
-  };
-
+export default class ElementItem extends Component {
   componentDidMount() {
     const items = elementService.getAllElements();
     this.setState({
@@ -14,7 +10,7 @@ export default class ElementsList extends Component {
   }
 
   dragStart = data => event => {
-    let fromElement =data.name;
+    let fromElement = data.name;
     event.dataTransfer.setData("dragContent", fromElement);
   };
 
@@ -25,7 +21,7 @@ export default class ElementsList extends Component {
           <li key={element.id.toString()} id={"item-" + element.id}>
             <div
               draggable="true"
-              onDragStart={this.dragStart({ name: element.name })}
+              onDragStart={this.dragStart({ name: "item-" + element.name })}
               className="element-to-select"
             >
               {element.name}

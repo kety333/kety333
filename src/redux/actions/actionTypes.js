@@ -1,0 +1,1 @@
+export const UPDATE_LAYOUT = "UPDATE_LAYOUT";
