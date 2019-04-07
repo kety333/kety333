@@ -10,7 +10,7 @@ import configureStore from "./redux/configureStore";
 import { Provider as ReduxProvider } from "react-redux";
 import LayoutService from "./services/layoutService";
 
-const store = configureStore({layouts:LayoutService.getLayouts()});
+const store = configureStore({layouts:LayoutService.getLayoutsObject()});
 
 render(
   <ReduxProvider store={store}>

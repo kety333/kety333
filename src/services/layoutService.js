@@ -7,6 +7,15 @@ class LayoutService {
     return json.map(singleJson => new LayoutModel(singleJson));
   };
 
+  getLayoutsObject=()=>  {
+      let layoutObject = {};
+      const layoutsArray = this.getLayouts();
+      for (let i = 0; i < layoutsArray.length; i++) {
+          layoutObject[i] =layoutsArray[i];
+      }
+      return layoutObject;
+  }
+
   getLayoutById = (layouts,id) => {
         for (let i = 0; i < layouts.length; i++)
       if (layouts[i].id === id) {
