@@ -14,7 +14,7 @@ export default class ElementsList extends Component {
   }
 
   dragStart = data => event => {
-    let fromElement =data.name;
+    let fromElement = data.elemtntId;
     event.dataTransfer.setData("dragContent", fromElement);
   };
 
@@ -22,10 +22,11 @@ export default class ElementsList extends Component {
     return (
       <ul className="element-list">
         {this.state.elemnts.map(element => (
-          <li key={element.id.toString()} id={"item-" + element.id}>
+          <li key={element.id.toString()}>
             <div
+              id={"item-" + element.id}
               draggable="true"
-              onDragStart={this.dragStart({ name: element.name })}
+              onDragStart={this.dragStart({ elemtntId: "item-" + element.id })}
               className="element-to-select"
             >
               {element.name}

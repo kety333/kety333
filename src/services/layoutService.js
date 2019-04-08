@@ -7,20 +7,21 @@ class LayoutService {
     return json.map(singleJson => new LayoutModel(singleJson));
   };
 
-  getLayoutsObject=()=>  {
-      let layoutObject = {};
-      const layoutsArray = this.getLayouts();
-      for (let i = 0; i < layoutsArray.length; i++) {
-          layoutObject[i] =layoutsArray[i];
-      }
-      return layoutObject;
-  }
+  getLayoutsObject = () => {
+    let layoutObject = {};
+    const layoutsArray = this.getLayouts();
+    for (let i = 0; i < layoutsArray.length; i++) {
+      layoutObject[i] = layoutsArray[i];
+    }
+    return layoutObject;
+  };
 
-  getLayoutById = (layouts,id) => {
-        for (let i = 0; i < layouts.length; i++)
-      if (layouts[i].id === id) {
-        return layouts[i];
+  getLayoutById = (layouts, id) => {
+    for (let key in layouts) {
+      if (parseInt(layouts[key].id) === id) {
+        return layouts[key];
       }
+    }
   };
 
   // updateLayout=(layout,cell,newValue)=> {

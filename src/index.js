@@ -6,17 +6,18 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import App from "./components/App";
 import "./index.css";
-import configureStore from "./redux/configureStore";
-import { Provider as ReduxProvider } from "react-redux";
-import LayoutService from "./services/layoutService";
+// import configureStore from "./redux/configureStore";
+// import { Provider as ReduxProvider } from "react-redux";
+// import LayoutService from "./services/layoutService";
 
-const store = configureStore({layouts:LayoutService.getLayoutsObject()});
+import layoutStore from "./redux/store";
+import { Provider } from "react-redux";
 
 render(
-  <ReduxProvider store={store}>
+  <Provider store={layoutStore}>
     <Router>
       <App />
     </Router>
-  </ReduxProvider>,
+  </Provider>,
   document.getElementById("app")
 );

@@ -1,29 +1,31 @@
 import React from "react";
 import GridLayout from "react-grid-layout";
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
-import * as layoutActions from "../../redux/actions/layotActions";
-
+import layoutService from "../../services/layoutService";
+import { connect } from "react-redux";
+import { updateLayout } from "../../redux/actions/layout-actions";
 
 class ElementsGridLayout extends React.Component {
   static propTypes = {
     width: PropTypes.number.isRequired,
     rowHeight: PropTypes.number.isRequired,
     layoutId: PropTypes.number.isRequired,
-    layoutsList:PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    layoutsList: PropTypes.object.isRequired,
+    updateLayoutFromProps: PropTypes.func.isRequired
   };
 
   state = {
-    layoutData:[]
+    layoutData: []
   };
 
   componentDidMount() {
-    const layoutById = this.props.layoutsList[this.props.layoutId -1];
-    const layoutTemp = (layoutById !== undefined )? layoutById.layout : [];
+    const layoutById = layoutService.getLayoutById(
+      this.props.layoutsList.layouts,
+      this.props.layoutId
+    );
+    const layout = layoutById !== undefined ? layoutById.layout : [];
     this.setState({
-        layoutData:layoutTemp
+      layoutData: layout
     });
   }
 
@@ -32,57 +34,51 @@ class ElementsGridLayout extends React.Component {
     event.dataTransfer.setData("targetContent", event.target.id);
   };
 
-  onDrop = (event) => {
-      event.preventDefault();
+  onDrop = event => {
+    event.preventDefault();
 
     const data = event.dataTransfer.getData("dragContent");
     const targetLayoutElementId = event.target.id;
+    this.addDragedItem(data, targetLayoutElementId);
 
-      this.setState(state => {
-          const layoutData = state.layoutData.map(item =>{
-              if(item.id === parseInt(targetLayoutElementId)){
-                  item.value = data;
-              }
-              return item;
-          } );
-
-          return {
-              layoutData
-          };
+    this.props.updateLayoutFromProps({
+      layoutId: this.props.layoutId - 1,
+      targetItemId:
+        parseInt(
+          targetLayoutElementId.replace(this.props.layoutId + "__", "")
+        ) - 1,
+      dreggetItemId: data
+    });
+    this.setState(state => {
+      const layoutData = state.layoutData.map(item => {
+        let itemId = this.props.layoutId + "__" + item.id;
+        if (itemId === targetLayoutElementId) {
+          item.draggedValue = data;
+        }
+        return item;
       });
-      this.props.actions.updateLayout(this.state.layoutData);
-      // this.setState({
-      //     layoutData: update(this.state.layoutData, {elementId: {value: {$set: data}}})
-      // })
-     // this.setState({
-     //      layoutData[this.state.layoutData-1].value:data
-     // })
-   // let newLayout = {...this.props.layoutsList[this.props.layoutId -1]}
-      // event.target.appendChild(data);
-
-      // this.setState(state => {
-      //     const layouts = state.layout.map((item, j) => {
-      //         if (j === i) {
-      //             return item + 1;
-      //         } else {
-      //             return item;
-      //         }
-      //     });
-      //
-      //     return {
-      //         list,
-      //     };
-    // const layouts = { ...this.state, title: event.target.value };
-    // this.props.actions.updateLayout(this.state.course);
-    //   this.setState({ layouts });
-    //      this.setState({
-    //       ...this.state,
-    //       layouts
-    //   });
+      return {
+        layoutData
+      };
+    });
   };
 
+  addDragedItem = (data, targetLayoutElementId) => {
+    const draggedElm = document.getElementById(data);
+    let cloneItem = draggedElm.cloneNode(true);
+    cloneItem.id = data + "dragged";
+    const targetNode = document.getElementById(targetLayoutElementId);
+    if (targetNode !== null) {
+      while (targetNode.firstChild) {
+        targetNode.removeChild(targetNode.firstChild);
+      }
+      targetNode.appendChild(cloneItem);
+    } else {
+      return data;
+    }
+  };
 
-    render() {
+  render() {
     return (
       <GridLayout
         className="layout elements-grid-layout"
@@ -92,31 +88,44 @@ class ElementsGridLayout extends React.Component {
         rowHeight={this.props.rowHeight}
         width={this.props.width}
       >
-        {this.state.layoutData.map(item => (
-          <div
-            key={item.i}
-            id={item.id}
-            onDrop={e => this.onDrop(e, "complete")}
-            onDragOver={this.dragOver}
-          >
-              {item.value ? <div className="element-to-select" >{item.value}</div> :   item.i}
-          </div>
-        ))}
+        {this.state.layoutData.length > 0 ? (
+          this.state.layoutData.map(item => (
+            <div
+              key={item.i}
+              id={this.props.layoutId + "__" + item.id}
+              onDrop={e => this.onDrop(e, "complete")}
+              onDragOver={this.dragOver}
+            >
+              {item.draggedValue !== "none"
+                ? this.addDragedItem(
+                    item.draggedValue,
+                    this.props.layoutId + "__" + item.id
+                  )
+                : item.i}
+            </div>
+          ))
+        ) : (
+          <div>this.props.layoutId</div>
+        )}
       </GridLayout>
     );
   }
 }
 
 function mapActionsToProp(dispatch) {
-    return {
-        actions: bindActionCreators(layoutActions, dispatch)
-    };
+  return {
+    updateLayoutFromProps: updatedLayout =>
+      dispatch(updateLayout(updatedLayout))
+  };
 }
 
 function mapStateToProps(storageState) {
-    return {
-        layoutsList: storageState.layouts
-    };
+  return {
+    layoutsList: storageState.layouts
+  };
 }
 
-export default connect(mapStateToProps, mapActionsToProp)(ElementsGridLayout)
+export default connect(
+  mapStateToProps,
+  mapActionsToProp
+)(ElementsGridLayout);
