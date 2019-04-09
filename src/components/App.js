@@ -4,6 +4,7 @@ import Header from "./common/Header";
 import PageNotFound from "./views/PageNotFound";
 import MainPage from "./views/MainView/MainView";
 import ConfigurationViewPage from "./views/ConfigurationView/ConfigurationView";
+import FullScreenViewPage from "./views/FullScreenView";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { install } from "@material-ui/styles";
 
@@ -18,9 +19,14 @@ function App() {
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route
-            exaact
+            exact
             path="/configuration/:layout"
             component={ConfigurationViewPage}
+          />
+          <Route
+            exact
+            path="/fullscreen/:layout"
+            component={FullScreenViewPage}
           />
           <Route component={PageNotFound} />
         </Switch>

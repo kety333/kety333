@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import ElementsGridLayout from "../../ui/ElementsGridLayout";
+import { Link } from "react-router-dom";
 
 const styles = theme => {
   return {
@@ -58,14 +59,16 @@ class ConfGridRow extends React.Component {
         </Grid>
         <Grid item xs={10}>
           <Paper className={this.props.classes.layoutView}>
-            <div className="layout-configrtion-view">
-              <ElementsGridLayout
-                id="conf-grid-layput"
-                rowHeight={200}
-                width={this.state.rowWidth}
-                layoutId={this.props.layoutId}
-              />
-            </div>
+            <Link to={"/fullscreen/" + this.props.layoutId}>
+              <div className="layout-configrtion-view">
+                <ElementsGridLayout
+                  id="conf-grid-layput"
+                  rowHeight={200}
+                  width={this.state.rowWidth}
+                  layoutId={this.props.layoutId}
+                />
+              </div>
+            </Link>
           </Paper>
         </Grid>
       </React.Fragment>

@@ -60,6 +60,10 @@ class ElementsGridLayout extends React.Component {
         layoutData
       };
     });
+
+    setTimeout(() => {
+      this.addDragedItem(data, targetLayoutElementId);
+    }, 0);
   };
 
   addDragedItem = (data, targetLayoutElementId) => {
@@ -75,6 +79,8 @@ class ElementsGridLayout extends React.Component {
         }
         cloneItem.setAttribute("style", "margin-left: 20%;");
         targetNode.appendChild(cloneItem);
+
+        // return targetNode.outerHTML; //e(cloneItem.outerHTML, targetNode);
       } else {
         return data;
       }

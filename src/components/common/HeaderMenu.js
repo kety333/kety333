@@ -44,6 +44,9 @@ class HeaderMenu extends React.Component {
           <Link to="configuration/1">
             <MenuItem onClick={this.handleClose}>Configuration View</MenuItem>
           </Link>
+          <Link to="fullscreen/1" target="_blank">
+            <MenuItem>Full Sreen View</MenuItem>
+          </Link>
         </Menu>
       </div>
     );
