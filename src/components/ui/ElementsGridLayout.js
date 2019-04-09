@@ -72,6 +72,7 @@ class ElementsGridLayout extends React.Component {
       while (targetNode.firstChild) {
         targetNode.removeChild(targetNode.firstChild);
       }
+      cloneItem.setAttribute("style", "margin-left: 20%;");
       targetNode.appendChild(cloneItem);
     } else {
       return data;

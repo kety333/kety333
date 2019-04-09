@@ -7,61 +7,79 @@ import Grid from "@material-ui/core/Grid";
 import ElementsGridLayout from "../../ui/ElementsGridLayout";
 
 const styles = theme => {
-    return {
-        root: {
-            minW: 1890,
-            width: 1890,
-            padding: 20,
-            paddingleft: 40
-        },
-        paper: {
-            padding: theme.spacing.unit,
-            textAlign: "center",
-            rowHeight: 200
-        }
-    };
+  return {
+    root: {
+      padding: 20
+    },
+    layoutView: {
+      padding: theme.spacing.unit,
+      textAlign: "center",
+      rowHeight: 200,
+      marginLeft: 30
+    },
+    itemsView: {
+      padding: theme.spacing.unit,
+      textAlign: "center",
+      rowHeight: 200
+    }
+  };
 };
 
-function ConfGridRow(props) {
-  const { classes, layoutId } = props;
+class ConfGridRow extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    layoutId: PropTypes.number.isRequired
+  };
 
-  return (
-    <React.Fragment>
-      <Grid item xs={2}>
-        <Paper className={classes.paper}>
-          <ElementsList />
-        </Paper>
-      </Grid>
-      <Grid item xs={8}>
-        <Paper className={classes.paper}>
-          <div className="layout-configrtion-view">
-            <ElementsGridLayout
-              rowHeight={200}
-              width={1200}
-              className={classes.paper}
-              layoutId={layoutId}
-            />
-          </div>
-        </Paper>
-      </Grid>
-    </React.Fragment>
-  );
+  state = {
+    rowWidth: 600
+  };
+  updateDimensions = e => {
+    if (e.currentTarget.innerWidth) {
+      const newWidth = ((e.currentTarget.innerWidth - 150) / 12) * 10;
+      this.setState({ rowWidth: newWidth });
+    }
+  };
+  componentDidMount = () => {
+    this.setState({ rowWidth: ((window.innerWidth - 150) / 12) * 10 });
+    window.addEventListener("resize", this.updateDimensions);
+  };
+  componentWillUnmount = () => {
+    window.removeEventListener("resize", this.updateDimensions);
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <Grid item xs={2}>
+          <Paper className={this.props.classes.itemsView}>
+            <ElementsList />
+          </Paper>
+        </Grid>
+        <Grid item xs={10}>
+          <Paper className={this.props.classes.layoutView}>
+            <div className="layout-configrtion-view">
+              <ElementsGridLayout
+                id="conf-grid-layput"
+                rowHeight={200}
+                width={this.state.rowWidth}
+                layoutId={this.props.layoutId}
+              />
+            </div>
+          </Paper>
+        </Grid>
+      </React.Fragment>
+    );
+  }
 }
-
-ConfGridRow.propTypes = {
-  classes: PropTypes.object.isRequired,
-  layoutId: PropTypes.number.isRequired
-};
 
 function ConfGrid(props) {
   const { classes, layoutId } = props;
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={16}>
-        <Grid container item xs={12} spacing={16}>
-          <ConfGridRow classes={classes} layoutId={layoutId} />
-        </Grid>
+      <Grid container item xs={12} spacing={8}>
+        <ConfGridRow classes={classes} layoutId={layoutId} />
       </Grid>
     </div>
   );

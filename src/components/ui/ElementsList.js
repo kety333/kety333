@@ -9,8 +9,7 @@ const styles = () => ({
     borderStyle: "solid",
     height: 150,
     width: "100%",
-    minWidth: 50,
-    maxWidth: 400,
+    maxWidth: 180,
     textAlign: "center",
     marginTop: 20,
     paddingTop: 65
