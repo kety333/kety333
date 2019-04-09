@@ -3,10 +3,11 @@
   border: 2px solid rgb(54, 95, 228);
 }
 .main-view-layouts-grid {
-  width: 1100px;
+  width: 100%;
+  min-width: 900px;
 }
 .layout-configrtion-view {
-  width: 1200px;
+  width: 100%;
 }
 .elements-grid-layout {
   padding: 10;
@@ -16,13 +17,15 @@
   border-bottom: 2px solid rgb(54, 95, 228);
 }
 
-.element-to-select {
+/* .element-to-select {
   border: 2px solid rgb(54, 95, 228);
-width: 250px;
+  width: 100%;
+  min-width: 100px;
+  max-width: 250px;
   height: 150px;
   margin-top: 20px;
   padding-top: 65px;
-}
+} */
 
 ul.element-list {
   list-style-type: none;

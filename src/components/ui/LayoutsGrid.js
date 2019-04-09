@@ -17,13 +17,25 @@ function LayoutsGrid(props) {
     <div className={classes.root}>
       <Grid container spacing={16}>
         <Grid container item xs={12} spacing={24}>
-          <LayoutsGridRow classes={classes} rowId={0} />
+          <LayoutsGridRow
+            className={classes.root}
+            classes={classes}
+            rowId={0}
+          />
         </Grid>
         <Grid container item xs={12} spacing={24}>
-          <LayoutsGridRow classes={classes} rowId={1} />
+          <LayoutsGridRow
+            className={classes.root}
+            classes={classes}
+            rowId={1}
+          />
         </Grid>
         <Grid container item xs={12} spacing={24}>
-          <LayoutsGridRow classes={classes} rowId={2} />
+          <LayoutsGridRow
+            className={classes.root}
+            classes={classes}
+            rowId={2}
+          />
         </Grid>
       </Grid>
     </div>

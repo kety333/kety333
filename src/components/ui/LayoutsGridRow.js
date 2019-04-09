@@ -7,8 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 const styles = theme => ({
-    paper: {
-    height: 180,
+  paper: {
     padding: theme.spacing.unit,
     textAlign: "center",
     margin: 10
@@ -25,7 +24,7 @@ function LayoutsGridRow(props) {
           <Paper className={classes.paper}>
             <ElementsGridLayout
               layoutId={rowId * 3 + 1}
-              rowHeight={30}
+              rowHeight={40}
               width={300}
               className={classes.paper}
             />
@@ -37,7 +36,7 @@ function LayoutsGridRow(props) {
           <Paper className={classes.paper}>
             <ElementsGridLayout
               layoutId={rowId * 3 + 2}
-              rowHeight={30}
+              rowHeight={40}
               width={300}
               className={classes.paper}
             />
@@ -49,7 +48,7 @@ function LayoutsGridRow(props) {
           <Paper className={classes.paper}>
             <ElementsGridLayout
               layoutId={rowId * 3 + 3}
-              rowHeight={30}
+              rowHeight={40}
               width={300}
               className={classes.paper}
             />
