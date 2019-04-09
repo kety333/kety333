@@ -39,7 +39,6 @@ class ElementsGridLayout extends React.Component {
 
     const data = event.dataTransfer.getData("dragContent");
     const targetLayoutElementId = event.target.id;
-    this.addDragedItem(data, targetLayoutElementId);
 
     this.props.updateLayoutFromProps({
       layoutId: this.props.layoutId - 1,
@@ -65,16 +64,22 @@ class ElementsGridLayout extends React.Component {
 
   addDragedItem = (data, targetLayoutElementId) => {
     const draggedElm = document.getElementById(data);
-    let cloneItem = draggedElm.cloneNode(true);
-    cloneItem.id = data + "dragged";
-    const targetNode = document.getElementById(targetLayoutElementId);
-    if (targetNode !== null) {
-      while (targetNode.firstChild) {
-        targetNode.removeChild(targetNode.firstChild);
+    if (draggedElm !== null) {
+      //In config View
+      let cloneItem = draggedElm.cloneNode(true);
+      cloneItem.id = data + "dragged";
+      const targetNode = document.getElementById(targetLayoutElementId);
+      if (targetNode !== null) {
+        while (targetNode.firstChild) {
+          targetNode.removeChild(targetNode.firstChild);
+        }
+        cloneItem.setAttribute("style", "margin-left: 20%;");
+        targetNode.appendChild(cloneItem);
+      } else {
+        return data;
       }
-      cloneItem.setAttribute("style", "margin-left: 20%;");
-      targetNode.appendChild(cloneItem);
     } else {
+      //In Main view
       return data;
     }
   };
