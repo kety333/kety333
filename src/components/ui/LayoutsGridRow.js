@@ -25,7 +25,7 @@ class LayoutsGridRow extends React.Component {
   };
   updateDimensions = e => {
     if (e.currentTarget.innerWidth) {
-      const newWidth = (e.currentTarget.innerWidth - 200) / 3;
+      const newWidth = (e.currentTarget.innerWidth - 250) / 3;
       if (newWidth > 240) {
         this.setState({ rowWidth: (e.currentTarget.innerWidth - 200) / 3 });
       } else {
@@ -34,7 +34,7 @@ class LayoutsGridRow extends React.Component {
     }
   };
   componentDidMount = () => {
-    this.setState({ rowWidth: (window.innerWidth - 200) / 3 });
+    this.setState({ rowWidth: (window.innerWidth - 250) / 3 });
     window.addEventListener("resize", this.updateDimensions);
   };
   componentWillUnmount = () => {
