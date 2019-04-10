@@ -59,7 +59,7 @@ class ConfGridRow extends React.Component {
         </Grid>
         <Grid item xs={10}>
           <Paper className={this.props.classes.layoutView}>
-            <Link to={"/fullscreen/" + this.props.layoutId}>
+            <Link to={"/fullscreen/" + this.props.layoutId} target="_blank">
               <div className="layout-configrtion-view">
                 <ElementsGridLayout
                   id="conf-grid-layput"
